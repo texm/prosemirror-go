@@ -1,6 +1,6 @@
 package builder
 
-import p "github.com/karitham/prosemirror"
+import p "github.com/texm/prosemirror-go"
 
 type Builder struct {
 	schema p.Schema

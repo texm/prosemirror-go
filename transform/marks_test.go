@@ -4,12 +4,12 @@ import (
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/karitham/prosemirror"
-	"github.com/karitham/prosemirror/transform"
 	"github.com/stretchr/testify/assert"
+	"github.com/texm/prosemirror-go"
+	"github.com/texm/prosemirror-go/transform"
 
 	// for side effects
-	_ "github.com/karitham/prosemirror/schema"
+	_ "github.com/texm/prosemirror-go/schema"
 )
 
 func TestMark(t *testing.T) {

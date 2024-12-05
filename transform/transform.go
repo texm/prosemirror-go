@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-json-experiment/json"
 
-	"github.com/karitham/prosemirror"
+	"github.com/texm/prosemirror-go"
 )
 
 // Applier is an interface that all step types implement.

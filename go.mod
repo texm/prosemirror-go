@@ -1,4 +1,4 @@
-module github.com/karitham/prosemirror
+module github.com/texm/prosemirror-go
 
 go 1.22.0
 

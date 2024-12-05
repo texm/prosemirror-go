@@ -6,9 +6,9 @@ import (
 
 	"github.com/go-json-experiment/json"
 
-	"github.com/karitham/prosemirror"
-	b "github.com/karitham/prosemirror/builder"
-	"github.com/karitham/prosemirror/schema"
+	"github.com/texm/prosemirror-go"
+	b "github.com/texm/prosemirror-go/builder"
+	"github.com/texm/prosemirror-go/schema"
 )
 
 func TestNodeCalcSize(t *testing.T) {

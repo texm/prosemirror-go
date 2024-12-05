@@ -3,9 +3,9 @@ package schema_test
 import (
 	"testing"
 
-	p "github.com/karitham/prosemirror"
-	"github.com/karitham/prosemirror/schema"
 	"github.com/stretchr/testify/assert"
+	p "github.com/texm/prosemirror-go"
+	"github.com/texm/prosemirror-go/schema"
 )
 
 func TestDefaultSchema(t *testing.T) {

@@ -11,7 +11,7 @@ We want to be 100% compliant at least on document and transformation aspects.
 ## Usage
 
 ```sh
-go get -u github.com/karitham/prosemirror
+go get -u github.com/texm/prosemirror-go
 ```
 
 Then create a `Schema` and use it to build your document.

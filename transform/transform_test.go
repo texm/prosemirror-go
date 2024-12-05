@@ -6,10 +6,10 @@ import (
 	"github.com/go-json-experiment/json"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/karitham/prosemirror"
-	_ "github.com/karitham/prosemirror/schema"
-	"github.com/karitham/prosemirror/transform"
 	"github.com/stretchr/testify/assert"
+	"github.com/texm/prosemirror-go"
+	_ "github.com/texm/prosemirror-go/schema"
+	"github.com/texm/prosemirror-go/transform"
 )
 
 func TestTransforms(t *testing.T) {

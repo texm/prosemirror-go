@@ -3,10 +3,10 @@ package prosemirror_test
 import (
 	"testing"
 
-	"github.com/karitham/prosemirror"
-	b "github.com/karitham/prosemirror/builder"
-	"github.com/karitham/prosemirror/schema"
 	"github.com/stretchr/testify/assert"
+	"github.com/texm/prosemirror-go"
+	b "github.com/texm/prosemirror-go/builder"
+	"github.com/texm/prosemirror-go/schema"
 )
 
 func TestNode_Resolve(t *testing.T) {

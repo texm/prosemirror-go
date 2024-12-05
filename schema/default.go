@@ -1,7 +1,7 @@
 package schema
 
 import (
-	p "github.com/karitham/prosemirror"
+	p "github.com/texm/prosemirror-go"
 )
 
 var (

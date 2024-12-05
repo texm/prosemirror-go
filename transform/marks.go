@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-json-experiment/json"
 
-	"github.com/karitham/prosemirror"
+	"github.com/texm/prosemirror-go"
 )
 
 var _ Applier = (*MarkStep)(nil)
