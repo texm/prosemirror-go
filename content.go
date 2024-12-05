@@ -73,7 +73,6 @@ func parseNodespecContent(s string, types map[NodeTypeName]NodeType) (Expr, erro
 		Type: seqExpr,
 	}
 	seqContent := strings.Split(s, " ")
-	fmt.Printf("s: [%s], len: %d\n", s, len(seqContent))
 	for i, c := range seqContent {
 		e, eErr := parseNodespecContentExpr(c, types)
 		if eErr != nil {
