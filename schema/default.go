@@ -6,16 +6,17 @@ import (
 
 var (
 	DefaultSpec = p.SchemaSpec{
-		Nodes:   DefaultNodes,
 		TopNode: "doc",
+		Nodes:   DefaultNodes,
 		Marks:   DefaultMarks,
 	}
 
 	DefaultMarks = map[p.MarkTypeName]p.MarkSpec{
 		"link":   {},
-		"em":     {},
-		"strong": {},
+		"bold":   {},
 		"code":   {},
+		"italic": {},
+		"strike": {},
 	}
 
 	DefaultNodes = map[p.NodeTypeName]p.NodeSpec{

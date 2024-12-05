@@ -10,13 +10,13 @@ type SchemaSpec struct {
 	// NodeSpec objects that describe the node type
 	// associated with that name.
 	// The order in which they occur in the list is significant.
-	Nodes map[NodeTypeName]NodeSpec
+	Nodes map[NodeTypeName]NodeSpec `json:"nodes"`
 
 	// The mark types that exist in this schema.
-	Marks map[MarkTypeName]MarkSpec
+	Marks map[MarkTypeName]MarkSpec `json:"marks"`
 
 	// The name of the default top-level node for the schema.
-	TopNode NodeTypeName
+	TopNode NodeTypeName `json:"topNode"`
 
 	// Don't register the schema in the global schema store.
 	DontRegister bool
@@ -95,14 +95,14 @@ func compileContentMatch(typ *NodeType, schema Schema, contentExprCache map[stri
 func NewSchema(spec SchemaSpec) (Schema, error) {
 	s := Schema{Spec: spec}
 
-	nodes, err := compileNodeTypeSet(s, spec.Nodes)
-	if err != nil {
-		return Schema{}, fmt.Errorf("error compiling nodes: %w", err)
+	nodes, nodesErr := compileNodeTypeSet(s, spec.Nodes)
+	if nodesErr != nil {
+		return Schema{}, fmt.Errorf("error compiling nodes: %w", nodesErr)
 	}
 
-	marks, err := compileMarkTypeSet(s, spec.Marks)
-	if err != nil {
-		return Schema{}, fmt.Errorf("error compiling marks: %w", err)
+	marks, marksErr := compileMarkTypeSet(s, spec.Marks)
+	if marksErr != nil {
+		return Schema{}, fmt.Errorf("error compiling marks: %w", marksErr)
 	}
 
 	s.Nodes = nodes
@@ -111,9 +111,8 @@ func NewSchema(spec SchemaSpec) (Schema, error) {
 	contentExprCache := map[string]ContentMatch{}
 	for k := range nodes {
 		node := nodes[k]
-		err := compileContentMatch(&node, s, contentExprCache)
-		if err != nil {
-			return Schema{}, err
+		if matchErr := compileContentMatch(&node, s, contentExprCache); matchErr != nil {
+			return Schema{}, matchErr
 		}
 
 		nodes[k] = node

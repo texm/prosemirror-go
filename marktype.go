@@ -13,23 +13,23 @@ type MarkTypeName string
 // Marks are used to represent things like whether a node is emphasized or part of a link.
 type MarkType struct {
 	// The Name of the mark type.
-	Name MarkTypeName
+	Name MarkTypeName `json:"name"`
 	// The rank of the mark type.
 	// Rank int
 
 	// The schema this mark type is part of.
-	Schema Schema
+	Schema Schema `json:"schema"`
 	// The spec for this mark type.
-	Spec MarkSpec
+	Spec MarkSpec `json:"spec"`
 
 	// The defined attributes for this mark type.
-	Attrs map[string]Attribute
+	Attrs map[string]Attribute `json:"attrs"`
 
 	// Marks excluded by this mark type.
-	Excluded []MarkType
+	Excluded []MarkType `json:"excluded"`
 
 	// A mark instance with default attributes.
-	Instance *Mark
+	Instance *Mark `json:"instance,omitempty"`
 }
 
 func (mt MarkType) String() string {

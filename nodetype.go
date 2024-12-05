@@ -14,7 +14,7 @@ type NodeTypeName string
 type Attrs map[string]Attribute
 
 type Attribute struct {
-	Default any
+	Default any `json:"default"`
 }
 
 func (a Attribute) isRequired() bool {
@@ -23,22 +23,22 @@ func (a Attribute) isRequired() bool {
 
 type NodeSpec struct {
 	// The content expression for this node.
-	Content string
+	Content string `json:"content"`
 
 	// The marks that are allowed inside this node.
-	Marks *string
+	Marks *string `json:"marks,omitempty"`
 
 	// The group or groups this node belongs to.
-	Group string
+	Group string `json:"group"`
 
 	// Should be true for inline nodes.
-	Inline bool
+	Inline bool `json:"inline"`
 
 	// Can be set to true for non-leaf nodes.
-	Atom bool
+	Atom bool `json:"atom"`
 
 	// The attributes this node can have.
-	Attrs map[string]Attribute
+	Attrs map[string]Attribute `json:"attrs"`
 
 	// Determines if this is an important parent node.
 	// DefiningAsContext bool
@@ -50,22 +50,22 @@ type NodeSpec struct {
 	// Isolating bool
 
 	// Arbitrary additional properties.
-	Extra map[string]any
+	Extra map[string]any `json:"extra"`
 }
 
 // NodeType is the type of a slice content element
 type NodeType struct {
-	Name          NodeTypeName
-	Spec          NodeSpec
-	Schema        Schema
-	Block         bool
-	Text          bool
-	Groups        []string
-	Marks         []MarkType
-	Attrs         Attrs
-	DefaultAttrs  map[string]any
-	ContentMatch  ContentMatch
-	InlineContent bool
+	Name          NodeTypeName   `json:"name"`
+	Spec          NodeSpec       `json:"spec"`
+	Schema        Schema         `json:"schema"`
+	Block         bool           `json:"block"`
+	Text          bool           `json:"text"`
+	Groups        []string       `json:"groups"`
+	Marks         []MarkType     `json:"marks"`
+	Attrs         Attrs          `json:"attrs"`
+	DefaultAttrs  map[string]any `json:"defaultAttrs"`
+	ContentMatch  ContentMatch   `json:"contentMatch"`
+	InlineContent bool           `json:"inlineContent"`
 }
 
 func (n NodeType) MarshalJSON() ([]byte, error) {
