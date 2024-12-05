@@ -104,22 +104,22 @@ func (m MarkType) Eq(other MarkType) bool {
 
 type MarkSpec struct {
 	// The attributes this mark can have.
-	Attrs map[string]Attribute
+	Attrs map[string]Attribute `json:"attrs"`
 
 	// Whether this mark should be active at its end.
-	Inclusive bool
+	Inclusive bool `json:"inclusive"`
 
 	// Determines which other marks this can coexist with.
-	Excludes string
+	Excludes string `json:"excludes"`
 
 	// The group or groups this mark belongs to.
-	Group string
+	Group string `json:"group"`
 
 	// Whether this mark can span multiple nodes.
-	Spanning bool
+	Spanning bool `json:"spanning"`
 
 	// Additional spec properties.
-	Extra map[string]any
+	Extra map[string]any `json:"extra"`
 }
 
 func NewMarkType(s Schema, name MarkTypeName, spec MarkSpec) MarkType {

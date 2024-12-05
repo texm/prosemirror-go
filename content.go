@@ -64,6 +64,28 @@ type Expr struct {
 
 // currently doesn't allow subchoices/seqs
 func parseNodespecContent(s string, types map[NodeTypeName]NodeType) (Expr, error) {
+	isChoice := strings.Contains(s, " ")
+	if !isChoice {
+		return parseNodespecContentExpr(s, types)
+	}
+
+	expr := Expr{
+		Type: "seq",
+	}
+	seqContent := strings.Split(s, " ")
+	expr.Exprs = make([]Expr, len(seqContent))
+	for i, c := range seqContent {
+		e, eErr := parseNodespecContentExpr(c, types)
+		if eErr != nil {
+			return expr, fmt.Errorf("failed to parse seq %d: %v", i, eErr)
+		}
+		e.Exprs[i] = e
+	}
+
+	return expr, nil
+}
+
+func parseNodespecContentExpr(s string, types map[NodeTypeName]NodeType) (Expr, error) {
 	if s == "" {
 		return Expr{}, nil
 	}
@@ -77,15 +99,14 @@ func parseNodespecContent(s string, types map[NodeTypeName]NodeType) (Expr, erro
 		return Expr{}, fmt.Errorf("invalid content expression: %s", s)
 	}
 
-	nameExpr := parseAtom(matches[1], types)
+	namedExpr := parseAtom(matches[1], types)
 	name, minQ, maxQ, err := parseQuantifier(matches[2])
 	if err != nil {
 		return Expr{}, fmt.Errorf("invalid content expression: %s", s)
 	}
-
 	return Expr{
 		Type: name,
-		Expr: &nameExpr,
+		Expr: &namedExpr,
 		Min:  minQ,
 		Max:  maxQ,
 	}, nil
