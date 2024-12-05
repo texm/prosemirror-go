@@ -70,16 +70,16 @@ func parseNodespecContent(s string, types map[NodeTypeName]NodeType) (Expr, erro
 	}
 
 	expr := Expr{
-		Type: "seq",
+		Type: seqExpr,
 	}
 	seqContent := strings.Split(s, " ")
-	expr.Exprs = make([]Expr, len(seqContent))
+	fmt.Printf("s: [%s], len: %d\n", s, len(seqContent))
 	for i, c := range seqContent {
 		e, eErr := parseNodespecContentExpr(c, types)
 		if eErr != nil {
 			return expr, fmt.Errorf("failed to parse seq %d: %v", i, eErr)
 		}
-		e.Exprs[i] = e
+		e.Exprs = append(e.Exprs, e)
 	}
 
 	return expr, nil
@@ -365,6 +365,7 @@ func join(ints []int, sep string) string {
 
 const (
 	choiceExpr = "choice"
+	seqExpr    = "seq"
 	starExpr   = "star"
 	plusExpr   = "plus"
 	optExpr    = "opt"
@@ -399,10 +400,18 @@ func nfa(expr Expr) [][]Edge {
 		switch expr.Type {
 		case choiceExpr:
 			var edges []Edge
-			for _, expr := range expr.Exprs {
-				edges = append(edges, compile(expr, from)...)
+			for _, e := range expr.Exprs {
+				edges = append(edges, compile(e, from)...)
 			}
 			return edges
+		case seqExpr:
+			for i := range expr.Exprs {
+				next := compile(expr.Exprs[i], from)
+				if i == len(expr.Exprs)-1 {
+					return next
+				}
+				connect(next, node())
+			}
 		case starExpr:
 			loop := node()
 			edge(from, &loop, nil)
@@ -439,9 +448,10 @@ func nfa(expr Expr) [][]Edge {
 			return []Edge{edge(cur, nil, nil)}
 		case nameExpr:
 			return []Edge{edge(from, nil, &expr.Value)}
+		default:
+			panic(fmt.Sprintf("invalid expression type: %s", expr.Type))
 		}
-
-		panic(fmt.Sprintf("invalid expression type: %s", expr.Type))
+		return nil
 	}
 
 	connect(compile(expr, 0), node())
